@@ -2,7 +2,7 @@ class Lexer:
     digits = "0123456789"
     operations = "+-/*%()="
     letters = "abcdefhijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-
+    declarations = ["make", "let", "variable"]
     stopwards = [" "]
 
     def __init__(self, text):
@@ -22,8 +22,13 @@ class Lexer:
             elif self.char in Lexer.stopwards:
                 self.advance()
                 continue
-            elif self.chat in Lexer.letters:
+            elif self.char in Lexer.letters:
                 word = self.extract_word()
+                if word in Lexer.declarations:
+                    self.token = Declaration(word)
+                else:
+                    self.token = Variable(word)
+
             self.tokens.append(self.token)
 
         return self.tokens
@@ -74,3 +79,13 @@ class Float(Token):
 class Operation(Token):
     def __init__(self, value):
         super().__init__("OPERATION", value)
+
+
+class Declaration(Token):
+    def __init__(self, value):
+        super().__init__("DECLARATION", value)
+
+
+class Variable(Token):
+    def __init__(self, value):
+        super().__init__("VARIABLE", value)

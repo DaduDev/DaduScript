@@ -35,8 +35,26 @@ class Parser:
 
         return left_node
 
+    def variable(self):
+        if self.token.type == "VARIABLE":
+            return self.token
+
+    def statement(self):
+        if self.token.type == "DECLARATION":
+            self.advance()
+            left_node = self.variable()
+            self.advance()
+            if self.token.value == "=":
+                operation = self.token
+                self.advance()
+                right_node = self.expression()
+                return [left_node, operation, right_node]
+
+        elif self.token.type == "INT" or self.token.type == "FLOAT" or self.token.type == "OPERATION":
+            return self.expression()
+
     def parse(self):
-        return self.expression()
+        return self.statement()
 
     def advance(self):
         self.idx += 1
