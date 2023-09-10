@@ -1,6 +1,8 @@
 class Lexer:
     digits = "0123456789"
-    operations = "+-/*%"
+    operations = "+-/*%()="
+    letters = "abcdefhijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
     stopwards = [" "]
 
     def __init__(self, text):
@@ -20,6 +22,8 @@ class Lexer:
             elif self.char in Lexer.stopwards:
                 self.advance()
                 continue
+            elif self.chat in Lexer.letters:
+                word = self.extract_word()
             self.tokens.append(self.token)
 
         return self.tokens
@@ -34,6 +38,13 @@ class Lexer:
             self.advance()
 
         return Integer(number) if not isFloat else Float(number)
+
+    def extract_word(self):
+        word = ""
+        while (self.char in Lexer.letters and self.idx < len(self.text)):
+            word += self.char
+            self.advance()
+        return word
 
     def advance(self):
         self.idx += 1

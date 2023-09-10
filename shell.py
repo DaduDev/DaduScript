@@ -6,8 +6,11 @@ while True:
     text = input("DaduScript: ")
     tokeniser = Lexer(text)
     tokens = tokeniser.tokenize()
+
     parser = Parser(tokens)
     tree = parser.parse()
-    Interpreter = Interpreter(tree)
-    result = Interpreter.interprete()
+
+    interpreter = Interpreter(tree)
+    result = interpreter.interprete()
+
     print(result)
