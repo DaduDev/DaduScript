@@ -11,6 +11,13 @@ class Parser:
             self.advance()
             expression = self.expression()
             return expression
+        elif self.token.type.startswith("VARIABLE"):
+            return self.token
+        elif self.token.value == "+" or self.token.value == "-":
+            operator = self.token
+            self.advance()
+            operand = self.factor()
+            return [operator, operand]
 
     def term(self):
         left_node = self.factor()
@@ -36,7 +43,7 @@ class Parser:
         return left_node
 
     def variable(self):
-        if self.token.type == "VARIABLE":
+        if self.token.type.startswith("VARIABLE"):
             return self.token
 
     def statement(self):

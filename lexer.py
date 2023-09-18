@@ -4,6 +4,7 @@ class Lexer:
     letters = "abcdefhijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
     declarations = ["make", "let", "variable"]
     stopwards = [" "]
+    boolean = ["and", "or", "not"]
 
     def __init__(self, text):
         self.text = text
@@ -28,6 +29,8 @@ class Lexer:
                     self.token = Declaration(word)
                 else:
                     self.token = Variable(word)
+            elif word in Lexer.boolean:
+                self.token = Boolean(word)
 
             self.tokens.append(self.token)
 
@@ -88,4 +91,9 @@ class Declaration(Token):
 
 class Variable(Token):
     def __init__(self, value):
-        super().__init__("VARIABLE", value)
+        super().__init__("VARIABLE(?)", value)
+
+
+class Boolean(Token):
+    def __init__(self, value):
+        super().__init__("BOOLEAN", value)
