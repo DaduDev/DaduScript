@@ -6,19 +6,19 @@ from data import Data
 base = Data()
 
 while True:
-    text = input("DaduScript: ")
+    text = input("ShadowScript: ")
 
     if text == "exit":
         print("Bye!")
         break
 
-    tokeniser = Lexer(text)
-    tokens = tokeniser.tokenize()
+    tokenizer = Lexer(text)
+    tokens = tokenizer.tokenize()
 
     parser = Parser(tokens)
     tree = parser.parse()
 
     interpreter = Interpreter(tree, base)
-    result = interpreter.interprete()
-
-    print(result)
+    result = interpreter.interpret()
+    if result is not None:
+        print(result)
