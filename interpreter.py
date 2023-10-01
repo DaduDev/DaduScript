@@ -39,6 +39,8 @@ class Interpreter:
             output = left * right
         elif op.value == "/":
             output = left / right
+        elif op.value == "%":
+            output = left % right
         elif op.value == ">":
             output = 1 if left > right else 0
         elif op.value == ">=":
