@@ -49,7 +49,7 @@ class Interpreter:
             output = 1 if left < right else 0
         elif op.value == "<=":
             output = 1 if left <= right else 0
-        elif op.value == "?=":
+        elif op.value == "==":
             output = 1 if left == right else 0
         elif op.value == "!=":
             output = 1 if left != right else 0
