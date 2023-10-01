@@ -51,6 +51,8 @@ class Interpreter:
             output = 1 if left <= right else 0
         elif op.value == "?=":
             output = 1 if left == right else 0
+        elif op.value == "!=":
+            output = 1 if left != right else 0
         elif op.value == "and":
             output = 1 if left and right else 0
         elif op.value == "or":
